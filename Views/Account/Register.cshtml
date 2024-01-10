@@ -2,42 +2,90 @@
 @{
     ViewBag.Title = "Register";
 }
+<link rel="stylesheet" href="~/Content/Login.css">
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
+<body>
+    <section id="loginForm">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>@*Đăng kí tài khoản*@</h4>
+            @Html.ValidationSummary("", new { @class = "text-danger" })
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @*<form class="form">
+                    <div class="lb">
+                        @Html.LabelFor(m => m.Email, "Email", new { @class = "infos" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                    <div class="lb">
+                        @Html.LabelFor(m => m.Password, "Mật khẩu", new { @class = "infos" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                    <div class="lb">
+                        @Html.LabelFor(m => m.ConfirmPassword, "Xác Nhận Mật khẩu", new { @class = "infos" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+
+                </form>*@
+            <div class="login-box">
+                <form>
+                    <div class="custom-box">
+                        <p>Đăng ký tài khoản</p>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                            <div class="user-box">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="user-box">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password-input" })
+                                <span id="pwd" toggle="#password-input" class="eye-toggle"></span>
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, "Xác Nhận Mật khẩu", new { @class = "infos" })
+                            <div class="user-box">
+                                <div class="box">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", id = "cf-password-input" })
+                                    <span id="cf-pwd" toggle="#cf-password-input" class="eye-toggle"></span>
+
+                                </div>
+                                 @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div>
+                            <br />
+                            <button class="btn btn-outline-light" id="send" type="submit" value="Register">Đăng ký</button>
+                            <button class="btn btn-outline-light" id="limpar" type="reset">Xóa</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" value="Register" class="btn btn-outline-dark" />
-            </div>
-        </div>
-    }
-</main>
+        }
+    </section>
+
+</body>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.eye-toggle').click(function () {
+                var input = $($(this).attr('toggle'));
+                input.attr('type', input.attr('type') === 'password' ? 'text' : 'password');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+
 }

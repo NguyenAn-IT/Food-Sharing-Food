@@ -1,0 +1,108 @@
+﻿@model IPagedList<Food_Sharing_Food.Models.Foods>
+@using PagedList
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Food";
+    Layout = "~/Areas/Admin/Views/Shared/layout-admin.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/Areas/Admin/Content/Food.css">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Danh sách Món Ăn</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        /* Thêm CSS cho nút Sửa và Xóa */
+        .action-buttons a {
+            margin-right: 5px;
+        }
+
+            .action-buttons a.btn-edit {
+                background-color: #ffc107;
+                color: #000;
+            }
+
+            .action-buttons a.btn-delete {
+                background-color: #dc3545;
+                color: #fff;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Danh sách Món Ăn</h2>
+
+        <div class="search">
+            @using (Html.BeginForm("Food", "Food"))
+            {
+                <b>Tìm Kiếm:</b>@Html.RadioButton("Searching", "Name")<text>Tên món ăn</text>
+                @Html.RadioButton("Searching", "Address")<text>Địa chỉ</text>
+                @Html.RadioButton("Searching", "None", true)<text>None</text>
+                <br />
+                @Html.TextBox("Search")
+                <input type="submit" class="btn btn-light" value="Search" />
+            }
+        </div>
+
+        <p>
+            @if (User.IsInRole("Admin"))
+            {<a href="@Url.Action("Create")" class="btn btn-success">Thêm Món Ăn</a>}
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tên món ăn</th>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Loại Đồ Ăn</th>
+                        <th>Địa chỉ</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var food in Model)
+                    {
+                        <tr>
+                            <td>@Html.Raw(food.Name)</td>
+                            <td>
+                                @if (food.ImageUrl != null)
+                                {
+                                    <img src="@Url.Content(food.ImageUrl)" alt="@food.Name" style="max-width: 100px; height: 100px;" />
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/images/default.jpg")" alt="Default Image" />
+                                }
+                            </td>
+                            <td>@food.Price</td>
+                            <td>@food.TypeFoods.Name</td>
+                            <td>@food.Address</td>
+                            <td>
+                                @*<a href="@Url.Action("Details", new { id = food.Id })" class="btn btn-default">Chi Tiết</a>*@
+                                <a href="@Url.Action("Delete", new { id = food.Id })" class="btn btn-default">Xóa</a>
+                                <a href="@Url.Action("Edit", new { id = food.Id })" class="btn btn-default">Sửa</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination-container">
+            @Html.PagedListPager(Model, page => Url.Action("Food", new { page, Searching = ViewBag.Searching, Search = ViewBag.Search }))
+        </div>
+
+        <div class="text-center">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Về trang chủ</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

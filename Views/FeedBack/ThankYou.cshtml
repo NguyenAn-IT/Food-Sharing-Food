@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "ThankYou";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/ThankYou.css">
+
+<div id="thank-you">
+    <h2>Cảm ơn bạn đã gửi phản hồi!</h2>
+    <p>Chúng tôi rất trân trọng ý kiến của bạn và sẽ xem xét nó một cách cẩn thận.</p>
+    <div>
+        @Html.ActionLink("Trở về Trang Chủ", "Index", "Home")
+    </div>
+</div>
+

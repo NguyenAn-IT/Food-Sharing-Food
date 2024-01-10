@@ -1,0 +1,85 @@
+﻿/* Thay đổi màu nền và kích thước phông chữ cho tiêu đề */
+h2 {
+    background-color: #f5f5f5;
+    padding: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Tùy chỉnh kiểu cho bảng */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+    /* Định dạng cho tiêu đề cột */
+    .table th {
+        background-color: #f5f5f5;
+        padding: 10px;
+        text-align: left;
+    }
+
+    /* Định dạng cho dòng dữ liệu */
+    .table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+/* Tùy chỉnh kích thước ảnh và định dạng container ảnh */
+.image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+/* Định dạng cho nút cập nhật */
+.update-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Định dạng cho form thanh toán */
+.payment-form {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 5px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Định dạng cho thông báo lỗi */
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 20px;
+}

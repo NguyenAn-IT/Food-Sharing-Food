@@ -1,0 +1,408 @@
+﻿@model Food_Sharing_Food.Models.Cart
+@{
+    ViewBag.Title = "Thanh Toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+/* payment-form.css */
+
+/* Additional styles for the payment form */
+.email-form {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff; /* White background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    border-radius: 8px;
+}
+
+.email-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333; /* Dark text color */
+}
+
+.email-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ddd; /* Light border color */
+    border-radius: 4px;
+    background-color: #f8f9fa; /* Light background color */
+    color: #333; /* Dark text color */
+}
+
+.email-form input:focus {
+    outline: none;
+    border-color: #007bff; /* Highlight border color on focus */
+}
+
+.email-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for the background color */
+}
+
+.email-form button:hover {
+    background-color: #0056b3; /* Darker background color on hover */
+}
+
+/* Additional styles for responsiveness */
+    media (max-width: 767px) {
+    .email-form {
+        max-width: 100%;
+    }
+
+}
+    /* Additional styles for buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+    background-color: #f8f9fa;
+}
+
+/* Additional styles for tables */
+/* Additional styles for tables with a modern look */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e6e6e6;
+}
+
+.table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Responsive styles */
+media (max-width: 767px) {
+    .table {
+        box-shadow: none;
+    }
+    .table thead {
+        display: none;
+    }
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+    .table tr {
+        margin-bottom: 16px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .table td {
+        text-align: right;
+        padding: 10px;
+        text-align: left;
+    }
+}
+
+
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>Món Ăn Ngon</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="~/asset/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="~/asset/images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/asset/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/asset/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/asset/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/asset/css/custom.css">
+</head>
+<body>
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                @* <a class="navbar-brand" href="asset/index.html">
+                        <img src="~/asset/images/logo.png" alt="" />
+                    </a> *@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbars-rs-food">
+                    <ul class="navbar-nav ml-lg-1">
+                        <!-- Thay đổi lớp từ ml-auto thành mr-auto -->
+                        <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Food", "Food")">Món Ăn Ngon</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("About", "Home")">Về Chúng Tôi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Blog", "Home")">Diễn Đàn</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Giỏ Hàng</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                                <a class="dropdown-item" href="@Url.Action("ShowtoCart", "ShoppingCart")">Đặt Hàng</a>
+                                <a class="dropdown-item" href="@Url.Action("Payment", "ShoppingCart")">Thanh Toán</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "FeedBack")">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="all-page-title page-breadcrumb">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Giỏ Hàng</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-title text-center">
+                        <h2>Thanh Toán</h2>
+                        <p>-Bước cuối cùng để món ăn đến với bạn!!!-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Payment Form -->
+    @if (Model != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tên Món Ăn</th>
+                    <th>Địa chỉ</th>
+                    <th>Giá</th>
+                    <th>Hình Ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    double total = Convert.ToDouble(Convert.ToDouble(item.shopping_food.Price) * item.shopping_quantity);
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.shopping_food.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.shopping_food.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.shopping_food.Price)
+                        </td>
+                        <td>
+                            <div class="image-container">
+                                @if (item.shopping_food.ImageUrl != null)
+                                {
+                                    <img src="@Url.Content(item.shopping_food.ImageUrl)" alt="@item.shopping_food.Name" />
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/images/default.jpg")" alt="Default Image" />
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("updateCart", "ShoppingCart"))
+                            {
+                                <input type="hidden" value="@item.shopping_food.Id" name="FoodID" />
+                                <input type="number" value="@item.shopping_quantity" name="Quantity" />
+                                <input type="submit" value="Cập Nhật" class="update-button" />
+                            }
+                        </td>
+                        <td>
+                            @total
+                        </td>
+                        <td>
+                            <a href="/ShoppingCart/removeCart/@item.shopping_food.Id">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align:right">Tổng Giỏ Hàng = @Model.Total()</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="email-form">
+            @using (Html.BeginForm("Payment", "ShoppingCart", FormMethod.Post))
+            {
+
+               <div class="form-group">
+                    <label>Người nhận</label>
+                    <input name="shipName" required class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Điện thoại</label>
+                    <input name="mobile" class="form-control" required maxlength="11" minlength="9" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <input name="address" required class="form-control" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input name="To" required class="form-control" />
+                </div>
+
+
+                <button type="submit" class="btn btn-default">Gửi đơn hàng</button>
+            }
+        </div>
+
+    }
+    else
+    {
+        <span class="alert alert-danger">Chưa có sản phẩm nào trong giỏ hàng</span>
+    }
+
+
+    <tr>
+        <td style="border-top: none;text-align:left"  colspan="2">  <a href="/shoppingcart/PaymentWithPayPal" class="btn btn-success">Thanh toán PayPal</a></td>
+    </tr>
+    <a href="@Url.Action("Food","Food")" class="btn btn-default">Về Danh Sách</a>
+    <footer class="footer-area bg-f">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <h3>Về Chúng Tôi</h3>
+                    <p>Chúng tôi với sứ mệnh mang đến cho mọi người những món ăn ngon, sạch sẽ, cũng như tạo ra cộng động để mọi người chia sẽ những món ăn ngon.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3> Đến với chúng tôi</h3>
+                    <p>Bạn sẽ không thể rời mắt khỏi màn hình với những món ăn được chia sẻ ở nơi đây</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p class="lead">123 Đường Nguyễn Huệ , Quận 1, TP HCM</p>
+                    <p class="lead"><a href="#"> 0912345676</a></p>
+                    <p><a href="#">  monanngon@gmail.com</a></p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Phản hồi nhanh</h3>
+                    <div class="subscribe_form">
+                        <form class="subscribe_form">
+                            <input name="EMAIL" id="subs-email" class="form_input" placeholder="Email Address..." type="email">
+                            <button type="submit" class="submit">Phản Hồi</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <ul class="list-inline f-social">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="company-name">
+                            &copy; All rights reserved. <a href="#"> 2023 Món Ăn Ngon.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+    <!-- ALL JS FILES -->
+    <script src="~/asset/js/jquery-3.2.1.min.js"></script>
+    <script src="~/asset/js/popper.min.js"></script>
+    <script src="~/asset/js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="~/asset/js/jquery.superslides.min.js"></script>
+    <script src="~/asset/js/images-loded.min.js"></script>
+    <script src="~/asset/js/isotope.min.js"></script>
+    <script src="~/asset/js/baguetteBox.min.js"></script>
+    <script src="~/asset/js/form-validator.min.js"></script>
+    <script src="~/asset/js/contact-form-script.js"></script>
+    <script src="~/asset/js/custom.js"></script>
+</body>
+</html> 

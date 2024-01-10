@@ -1,0 +1,272 @@
+﻿@model Food_Sharing_Food.Models.Cart
+@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>Món Ăn Ngon</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="~/asset/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="~/asset/images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/asset/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/asset/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/asset/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/asset/css/custom.css">
+    <style>
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+            .card:hover {
+                transform: scale(1.03);
+            }
+
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card-text {
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .btn-custom {
+            background-color: #28a745;
+            color: blueviolet;
+            border: none;
+        }
+
+            .btn-custom:hover {
+                background-color: #218838;
+            }
+
+        .total-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .total-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .checkout-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                @* <a class="navbar-brand" href="asset/index.html">
+                        <img src="~/asset/images/logo.png" alt="" />
+                    </a> *@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbars-rs-food">
+                    <ul class="navbar-nav ml-lg-1">
+                        <!-- Thay đổi lớp từ ml-auto thành mr-auto -->
+                        <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Food", "Food")">Món Ăn Ngon</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("About", "Home")">Về Chúng Tôi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Blog", "Home")">Diễn Đàn</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Giỏ Hàng</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                                <a class="dropdown-item" href="@Url.Action("ShowtoCart", "ShoppingCart")">Đặt Hàng</a>
+                                <a class="dropdown-item" href="@Url.Action("Payment", "ShoppingCart")">Thanh Toán</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "FeedBack")">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="all-page-title page-breadcrumb">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Giỏ Hàng</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-title text-center">
+                        <h2>Đặt Hàng</h2>
+                        <p>-Xem kĩ món ăn mình đặt và chú ý đến thời gian đặt hàng bạn nhé!!-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            @foreach (var item in Model.Items)
+            {
+                double total = Convert.ToDouble(Convert.ToDouble(item.shopping_food.Price) * item.shopping_quantity);
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="@Url.Content(item.shopping_food.ImageUrl ?? "~/images/default.jpg")" class="card-img-top" alt="@item.shopping_food.Name">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(model => item.shopping_food.Name)</h5>
+                                    <p class="card-text">Địa chỉ: @Html.DisplayFor(model => item.shopping_food.Address)</p>
+                                    <p class="card-text">Giá: @Html.DisplayFor(model => item.shopping_food.Price) đ</p>
+                                    <form method="post" action="@Url.Action("updateCart", "ShoppingCart")" class="form-inline">
+                                        <div class="form-group mr-2">
+                                            <label for="quantity">Số lượng:</label>
+                                            <input type="number" name="Quantity" value="@item.shopping_quantity" class="form-control" />
+                                        </div>
+                                        <input type="hidden" name="FoodID" value="@item.shopping_food.Id" />
+                                        <button type="submit" class="btn btn-custom mr-2">Cập Nhật</button>
+                                        <a href="/ShoppingCart/removeCart/@item.shopping_food.Id" class="btn btn-danger">Xóa</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="container total-section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="total-title">Tổng Giỏ Hàng:</div>
+                <div class="total-amount">@Model.Total() đ</div>
+            </div>
+        </div>
+        <div class="row checkout-buttons">
+            <div class="col-lg-12 text-right">
+                <a href="@Url.Action("Foo", "Food")" class="btn btn-secondary">Về Danh Sách</a>
+                <a href="@Url.Action("Payment", "ShoppingCart")" class="btn btn-success">Thanh Toán</a>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-area bg-f">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <h3>Về Chúng Tôi</h3>
+                    <p>Chúng tôi với sứ mệnh mang đến cho mọi người những món ăn ngon, sạch sẽ, cũng như tạo ra cộng động để mọi người chia sẽ những món ăn ngon.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3> Đến với chúng tôi</h3>
+                    <p>Bạn sẽ không thể rời mắt khỏi màn hình với những món ăn được chia sẻ ở nơi đây</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p class="lead">123 Đường Nguyễn Huệ , Quận 1, TP HCM</p>
+                    <p class="lead"><a href="#"> 0912345676</a></p>
+                    <p><a href="#">  monanngon@gmail.com</a></p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Phản hồi nhanh</h3>
+                    <div class="subscribe_form">
+                        <form class="subscribe_form">
+                            <input name="EMAIL" id="subs-email" class="form_input" placeholder="Email Address..." type="email">
+                            <button type="submit" class="submit">Phản Hồi</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <ul class="list-inline f-social">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="company-name">
+                            &copy; All rights reserved. <a href="#"> 2023 Món Ăn Ngon.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+    <!-- ALL JS FILES -->
+    <script src="~/asset/js/jquery-3.2.1.min.js"></script>
+    <script src="~/asset/js/popper.min.js"></script>
+    <script src="~/asset/js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="~/asset/js/jquery.superslides.min.js"></script>
+    <script src="~/asset/js/images-loded.min.js"></script>
+    <script src="~/asset/js/isotope.min.js"></script>
+    <script src="~/asset/js/baguetteBox.min.js"></script>
+    <script src="~/asset/js/form-validator.min.js"></script>
+    <script src="~/asset/js/contact-form-script.js"></script>
+    <script src="~/asset/js/custom.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,381 @@
+﻿@model Food_Sharing_Food.Models.Foods
+@using Food_Sharing_Food.Models;
+@using PagedList
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .col-md-12 {
+        width: 100%;
+    }
+
+    .mb-3 {
+        margin-bottom: 15px;
+    }
+
+    /* Kích thước hình ảnh */
+    .card-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px; /* Góc bo tròn cho hình ảnh */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card-body img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Phần Bình Luận */
+    #comment-form {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        #comment-form textarea {
+            resize: none;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+            #comment-form textarea:focus {
+                border-color: #007BFF;
+            }
+
+        #comment-form button {
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            #comment-form button:hover {
+                background-color: #0056b3;
+            }
+
+    .comment-item {
+        border-bottom: 1px solid #eee;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .comment-item:hover {
+            background-color: #f9f9f9;
+        }
+
+    .comment-author {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .comment-rating {
+        margin-left: 10px;
+        color: #FFD700;
+    }
+
+    .comment-created {
+        float: right;
+        color: #888;
+    }
+
+    #comments-section {
+        margin-top: 20px;
+    }
+
+    .comment-section-header {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .comment-section-footer {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px;
+        border-radius: 0 0 8px 8px;
+    }
+
+
+
+    /* Các quy tắc khác giữ nguyên */
+
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Món Ăn Ngon</title>
+    <link rel="shortcut icon" href="~/asset/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="~/asset/images/apple-touch-icon.png">
+    <link rel="stylesheet" href="~/asset/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/asset/css/style.css">
+    <link rel="stylesheet" href="~/asset/css/responsive.css">
+    <link rel="stylesheet" href="~/asset/css/custom.css">
+</head>
+<body>
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                @* <a class="navbar-brand" href="asset/index.html">
+                        <img src="~/asset/images/logo.png" alt="" />
+                    </a> *@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbars-rs-food">
+                    <ul class="navbar-nav ml-lg-1">
+                        <!-- Thay đổi lớp từ ml-auto thành mr-auto -->
+                        <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Food", "Food")">Món Ăn Ngon</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("About", "Home")">Về Chúng Tôi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Blog", "Home")">Diễn Đàn</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Giỏ Hàng</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                                <a class="dropdown-item" href="@Url.Action("ShowtoCart", "ShoppingCart")">Đặt Hàng</a>
+                                <a class="dropdown-item" href="@Url.Action("Payment", "ShoppingCart")">Thanh Toán</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "FeedBack")">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="all-page-title page-breadcrumb">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Chi Tiết Món Ăn Ngon</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-title text-center">
+                        <h2>Món Ăn Ngon</h2>
+                        <p>-Trải nghiệm những món ăn tuyệt vời khắp Việt Nam-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Chi tiết món ăn -->
+
+
+    <div class="container">
+        <div class="row">
+            <!-- Thông tin chi tiết món ăn và hình ảnh -->
+            <div class="col-md-12 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <img src="@Url.Content(Model.ImageUrl)" alt="Food Image" class="img-fluid" />
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/images/default.jpg")" alt="Default Image" class="img-fluid" />
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <div class="caption">
+                                    <p><strong>@Html.DisplayNameFor(model => model.Name):</strong> @Html.DisplayFor(model => model.Name)</p>
+                                    <p><strong>@Html.DisplayNameFor(model => model.Price):</strong> @Html.DisplayFor(model => model.Price)</p>
+                                    <p><strong>@Html.DisplayNameFor(model => model.Address):</strong> <a href="#" id="address-link">@Html.DisplayFor(model => model.Address)</a></p>
+                                    <p><strong>@Html.DisplayNameFor(model => model.TypeFoods.Name):</strong> @Html.DisplayFor(model => model.TypeFoods.Name)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Phần Bình Luận -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="card-footer">
+                                <h4>Thêm Bình Luận</h4>
+                                <form action="@Url.Action("AddComment", "Food")" method="post" id="comment-form">
+                                    <!-- ... (Giữ nguyên phần bình luận) ... -->
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="FoodId" value="@Model.Id" />
+
+                                    <div class="form-group">
+                                        <label for="FullName">Điền tên ở đây nhé!!:</label>
+                                        <input type="text" class="form-control" name="FullName" required />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Rating">Đánh Giá:</label>
+                                        <select class="form-control" name="Rating" required>
+                                            <option value="1">1 sao</option>
+                                            <option value="2">2 sao</option>
+                                            <option value="3">3 sao</option>
+                                            <option value="4">4 sao</option>
+                                            <option value="5">5 sao</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Content">Nội Dung:</label>
+                                        <textarea class="form-control" name="Content" rows="3" required></textarea>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Gửi Bình Luận</button>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <p>Bạn cần đăng nhập để thêm bình luận.</p>
+                        }
+
+
+                        <div id="comments-section">
+                            <!-- ... (Giữ nguyên phần hiển thị bình luận) ... -->
+                            @if (Model.Comments != null && Model.Comments.Any())
+                            {
+                                <h4>Bình Luận</h4>
+                                <ul class="list-unstyled" id="comment-list">
+                                    @foreach (var comment in Model.Comments)
+                                    {
+                                        <li>
+                                            <div class="comment-item">
+                                                <span class="comment-author">@comment.FullName:</span>
+                                                <span class="comment-content">@comment.Content</span>
+                                                <span class="comment-rating">&#x2B50;&#xFE0F; @comment.Rating</span>
+                                                <span class="comment-created">@comment.CreatedAt</span>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p> Hiện chưa có bình luận dành cho món ăn này.</p>
+                            }
+
+                            @if (Model.Comments != null && Model.Comments.Any())
+                            {
+                                var ratings = Model.Comments.Select(c => c.Rating).ToList();
+                                double averageRating = ratings.Any() ? ratings.Average() : 0;
+
+                                <p>
+                                    <strong>Đánh giá trung bình:</strong>
+                                    @averageRating <span>&#x2B50;&#xFE0F;&#xFE0F;</span>
+                                </p>
+                            }
+                        </div>
+                    </div>
+                    <div class="float-right">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary mr-2" })
+                        }
+                        @*@Html.ActionLink("Quay lại", "Index", "Home", null, new { @class = "btn btn-secondary mr-2" })*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kết thúc chi tiết món ăn -->
+    <!-- Footer -->
+    <footer class="footer-area bg-f">
+        <!-- Your existing footer content here -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <h3>Về Chúng Tôi</h3>
+                    <p>Chúng tôi với sứ mệnh mang đến cho mọi người những món ăn ngon, sạch sẽ, cũng như tạo ra cộng động để mọi người chia sẽ những món ăn ngon.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3> Đến với chúng tôi</h3>
+                    <p>Bạn sẽ không thể rời mắt khỏi màn hình với những món ăn được chia sẻ ở nơi đây</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p class="lead">123 Đường Nguyễn Huệ , Quận 1, TP HCM</p>
+                    <p class="lead"><a href="#"> 0912345676</a></p>
+                    <p><a href="#">  monanngon@gmail.com</a></p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Phản hồi nhanh</h3>
+                    <div class="subscribe_form">
+                        <form class="subscribe_form">
+                            <input name="EMAIL" id="subs-email" class="form_input" placeholder="Địa chỉ Email..." type="email">
+                            <button type="submit" class="submit">Phản Hồi</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <ul class="list-inline f-social">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="company-name">
+                            &copy; All rights reserved. <a href="#"> 2023 Món Ăn Ngon.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+    <!-- Back to top button -->
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+    <!-- JS Scripts -->
+    <script src="~/asset/js/jquery-3.2.1.min.js"></script>
+    <script src="~/asset/js/popper.min.js"></script>
+    <script src="~/asset/js/bootstrap.min.js"></script>
+    <script src="~/asset/js/jquery.superslides.min.js"></script>
+    <script src="~/asset/js/images-loded.min.js"></script>
+    <script src="~/asset/js/isotope.min.js"></script>
+    <script src="~/asset/js/baguetteBox.min.js"></script>
+    <script src="~/asset/js/form-validator.min.js"></script>
+    <script src="~/asset/js/contact-form-script.js"></script>
+    <script src="~/asset/js/custom.js"></script>
+
+</body>
+</html>
+
+
+

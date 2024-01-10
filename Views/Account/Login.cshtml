@@ -3,63 +3,73 @@
 @{
     ViewBag.Title = "Log in";
 }
+<link rel="stylesheet" href="~/Content/Login.css">
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <div class="row">
-        <div class="col-md-8">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Use a local account to log in.</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <div class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
+<body>
+    <section id="loginForm">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="login-box">
+                <form>
+                    <div class="custom-box">
+                        <p>Đăng Nhập</p>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                            <div class="user-box">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="offset-md-2 col-md-10">
-                            <input type="submit" value="Log in" class="btn btn-outline-dark" />
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="user-box">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password-input" })
+                                <span toggle="#password-input" class="eye-toggle"></span>
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                    <p>
-                        @Html.ActionLink("Register as a new user", "Register")
-                    </p>
-                    @* Enable this once you have account confirmation enabled for password reset functionality
-                        <p>
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                        </p>*@
-                }
-            </section>
-        </div>
-        <div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-            </section>
-        </div>
-    </div>
-</main>
+                        <div class="btn-remember">
+                            @Html.CheckBoxFor(m => m.RememberMe, new { id = "rememberMe" })
+                            @Html.LabelFor(m => m.RememberMe, new { @for = "rememberMe" })
+                            <label for="rememberMe"></label>
+                        </div>
+
+
+                        <div class="btn-login">
+                            <a href="#">
+                                <input type="submit" value="Đăng Nhập" class="btn btn-outline-light" />
+                            </a>
+                        </div>
+                   </div>
+                </form>
+                <hr />
+                <p>Không có tài khoản? <a href="" class="a2">@Html.ActionLink("Tạo tài khoản mới", "Register")</a></p>
+                @Html.Partial("_ExternalLoginsListPartial", new Food_Sharing_Food.Models.ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                @*<p>Quên mật khẩu? <a href="" class="a2">@Html.ActionLink("Quên Mật Khẩu", "ForgotPassword")</a></p>*@
+            </div>
+        }
+    </section>
+
+</body>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".eye-toggle").on('click', function () {
+                var passwordField = $($(this).attr("toggle"));
+                if (passwordField.attr("type") == "password") {
+                    passwordField.attr("type", "text");
+                } else {
+                    passwordField.attr("type", "password");
+                }
+            });
+        });
+    </script>
 }
+

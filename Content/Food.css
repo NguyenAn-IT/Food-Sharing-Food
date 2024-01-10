@@ -1,0 +1,116 @@
+﻿
+body {
+    background-image: url('images/streetfood.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.panel {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 2px #eee;
+    height: auto; /* thay đổi giá trị height thành auto */
+    box-sizing: border-box;
+}
+
+.panel-heading {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ccc;
+}
+
+.panel-title {
+    font-weight: bold;
+    color: #333;
+}
+h2 {
+    color: white;
+}
+.search{
+    color:white;
+}
+
+
+input[type="submit"] {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+
+.panel-body {
+    height: 100%; /* thêm thuộc tính height với giá trị 100% */
+    padding: 15px;
+    position: relative;
+}
+
+    .panel-body:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1; /* đẩy lớp này xuống dưới cùng */
+        background-color: rgba(255, 255, 255, 0.8); /* tạo màu nền trắng, có độ trong suốt 80% */
+    }
+
+.panel-footer {
+    background-color: #f5f5f5;
+    border-top: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+    .panel-footer .btn {
+        margin-right: 10px;
+    }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+    .pagination-container .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .pagination-container .pagination li {
+            margin: 0 5px;
+        }
+
+            .pagination-container .pagination li a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #333;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 5px 10px;
+                text-decoration: none;
+            }
+
+            .pagination-container .pagination li.active a {
+                background-color: #007bff;
+                color: #fff;
+                border-color: #007bff;
+            }
+
+            .pagination-container .pagination li.disabled a {
+                color: #ccc;
+                pointer-events: none;
+            }
+.fa-shopping-cart {
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+}

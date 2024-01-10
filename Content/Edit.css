@@ -1,0 +1,56 @@
+﻿body {
+    background-image: url('images/saquadi.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #F5F5F5;
+    padding-top: 60px;
+    font-size: 16px;
+}
+
+
+.form-horizontal {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    box-shadow: none;
+    border-radius: 0;
+    border-color: #DDDDDD;
+    font-size: 16px;
+}
+
+    .form-control:focus {
+        border-color: #3C8DBC;
+        box-shadow: none;
+    }
+
+.control-label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+input[type=submit] {
+    background-color: #3C8DBC;
+    border: none;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    input[type=submit]:hover {
+        background-color: #3071A9;
+    }
+
+.text-danger {
+    color: #FF0000;
+}
+
+

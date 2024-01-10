@@ -1,0 +1,1148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, i<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>
+nitial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>
+nitial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>
+nitial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>
+nitial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="shortcut icon" href="~/Content/images/book.png" />
+    <link rel="stylesheet" href="~/Content/stylesheet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="display:flex;">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                @Html.ActionLink("Book Admin", "IndexAdmin", "HomeAdmin", new { area = "Admin" }, new { @class = "navbar-brand" })
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        @Html.Partial("Login")
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+    @RenderSection("count", required: false)
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.navbar-toggle').on('click', function () {
+            $('.left-sidebar').toggleClass('sidebar-open');
+        });
+
+        // Thêm đoạn mã sau để ẩn thanh sidebar khi màn hình lớn hơn 767px
+        $(window).resize(function () {
+            var windowWidth = $(window).width();
+            if (windowWidth > 767) {
+                $('.left-sidebar').removeClass('sidebar-open');
+            }
+        });
+    });
+</script>
+<style>
+    .left-sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        left: -200px;
+        transition: left 0.3s ease;
+    }
+    input#searchString {
+        padding: 6px 9px;
+        border-radius: 13px;
+        border: 1px solid red;
+        width: 275px;
+        height: 32px;
+    }
+
+    button[type="submit"] {
+        margin-left: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        background-color: hotpink;
+        border: 1px solid red;
+        padding-top: 4px;
+    }
+
+    li.search {
+        margin-top: 8px;
+    }
+
+    .navbar-inverse {
+        background: rgb(33, 37, 41);
+        padding: 5px;
+    }
+
+    a.navbar-brand {
+        color: white;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: rgb(33, 37, 41);
+        border-right: 1px solid #dee2e6;
+    }
+
+    .sidebar-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 20px;
+    }
+
+    main {
+        margin-top: 60px;
+    }
+
+    a.nav-link.collapsed {
+        color: #9d9d9d;
+        font-size: 16px;
+        display: flex;
+        margin-left: 10px;
+        text-decoration: none;
+        padding-bottom: 5px;
+    }
+    a.nav-link.collapsed:hover{
+        color:ghostwhite;
+    }
+
+    .sb-nav-link-icon {
+        padding-right: 6px;
+    }
+
+    p {
+        color: #9d9d9d;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight:bold;
+        padding: 18px 16px 0 0;
+    }
+</style>

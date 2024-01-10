@@ -1,0 +1,457 @@
+﻿
+@{
+    ViewBag.Title = "FoodLike2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<!DOCTYPE html>
+    <html lang="en">
+
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="~/Content/FoodLike.css">
+        <title>Món ăn của tôi</title>
+
+    </head>
+
+    <body>
+        <header>
+            <h1>Món ăn yêu thích </h1>
+        </header>
+
+        <main>
+            <h1>KFC </h1>
+            <img src="~/Content/images/KFC STORE.jpg" alt="" class="recipe-image">
+            <p>
+                Có vẻ như với những tín đồ của thức ăn nhanh đã không còn lạ với cái tên KFC, bởi đây là chuỗi cửa hàng thức
+                ăn nhanh đầu tiên trên thế giới.Món ăn nổi tiếng của KFC là gà rán với lớp vỏ giòn tan bên ngoài và thịt
+                mềm, thơm ngon bên trong. Ngoài ra, KFC còn cung cấp các sản phẩm ăn nhanh khác như khoai tây chiên, salad,
+                sandwich, bánh pudding, kem và nhiều loại đồ uống khác.
+            </p>
+
+            <div class="ingredients">
+                <h2>Các món ăn ở KFC</h2>
+                <ul>
+                    <li>Gà rán</li>
+                    <li>Khoai tây chiên</li>
+                    <li>Burger gà</li>
+                    <li>Salad gà</li>
+                    <li>Hot Wings</li>
+                    <li>Popcorn chicken </li>
+                    <li>Twister</li>
+                </ul>
+            </div>
+            <div class="instructions">
+                <h2>Giới Thiệu</h2>
+                <li>
+                    KFC được thành lập vào năm 1930 tại Corbin, Kentucky, Hoa Kỳ bởi "Colonel" Harland Sanders. Sau nhiều
+                    năm phát triển và mở rộng, KFC hiện nay có hơn 24.000 cửa hàng tại hơn 145 quốc gia trên toàn thế giới,
+                    và trở thành một trong những thương hiệu hàng đầu trong lĩnh vực thực phẩm nhanh.
+                </li>
+            </div>
+        </main>
+    </body>
+
+    </html>*@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>Yamifood Restaurant - Responsive HTML5 Template</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="asset/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="asset/images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/asset/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/asset/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/asset/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/asset/css/custom.css">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!-- Start header -->
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                @*<a class="navbar-brand" href="asset/index.html">
+                        <img src="~/asset/images/logo.png" alt="" />
+                    </a>*@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbars-rs-food">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Food", "Food")">Món Ăn Ngon</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("About", "Home")">Về Chúng Tôi</a></li>
+                        @*<li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                                    <a class="dropdown-item" href="~/asset/reservation.html">Reservation</a>
+                                    <a class="dropdown-item" href="~/asset/stuff.html">Stuff</a>
+                                    <a class="dropdown-item" href="~/asset/gallery.html">Gallery</a>
+                                </div>
+                            </li>*@
+                        @*<li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Blog</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                                    <a class="dropdown-item" href="~/asset/blog.html">blog</a>
+                                    <a class="dropdown-item" href="~/asset/blog-details.html">blog Single</a>
+                                </div>
+                            </li>*@
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "FeedBack")">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="accordion-item">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+    <!-- Start All Pages -->
+    <div class="all-page-title page-breadcrumb">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Bài Viết</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Pages -->
+    <!-- Start blog details -->
+    <div class="blog-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-title text-center">
+                        <h2>Diễn Đàn</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 col-12">
+                    <div class="blog-inner-details-page">
+                        <div class="blog-inner-box">
+                            <div class="side-blog-img">
+                                <img class="img-fluid" src="~/asset/images/caepce.jpg" alt="">
+                                <div class="date-blog-up">
+                                    19 Tháng 12
+                                </div>
+                            </div>
+                            <div class="inner-blog-detail details-page">
+                                <h3>Gà KFC cho đến thời điểm hiện tại có còn ngon như ngày đầu??</h3>
+                                <ul>
+                                    <li><i class="zmdi zmdi-account"></i>Posted By : <span>Admin</span></li>
+                                    <li>|</li>
+                                    <li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li>
+                                </ul>
+                                <p>
+                                    KFC, viết tắt của "Kentucky Fried Chicken," là một chuỗi nhà hàng thức ăn nhanh nổi tiếng trên toàn thế giới, chuyên cung cấp các món chính là gà chiên. Nhãn hiệu này đã trở thành biểu tượng của ẩm thực nhanh và được biết đến với phong cách riêng và hương vị đặc trưng của món gà chiên.
+                                </p>
+                                <p>Món chính của KFC là gà chiên, được chế biến bằng cách ướp gia vị đặc biệt và chiên giòn. Nhóm sản phẩm chủ lực bao gồm Gà Giòn (Original Recipe), Gà Chảo Nước (Extra Crispy), và Gà Rán Kentucky Grilled. Ngoài ra, KFC cũng cung cấp các món ăn kèm như khoai tây chiên, bánh mì, salad, và nhiều loại sốt khác nhau.</p>
+                                <blockquote>
+                                    <p>Chiến lược quảng bá của KFC thường tập trung vào hình ảnh của "Colonel" Sanders và khẩu hiệu nổi tiếng "Finger Lickin' Good" (Ăn Là Phải Nếm Nước Mắt). Hình ảnh ông Sanders đã trở thành biểu tượng quen thuộc và đặc trưng của thương hiệu.</p>
+                                </blockquote>
+                                <p>
+                                    KFC cũng đã tham gia vào nhiều hoạt động xã hội, bao gồm chương trình "Add Hope" để hỗ trợ trẻ em đang đối mặt với nạn đói.
+
+                                    Trên tất cả, KFC không chỉ là một chuỗi nhà hàng nổi tiếng mà còn là một phần của văn hóa ẩm thực toàn cầu, mang lại cho khách hàng trải nghiệm ẩm thực độc đáo và thú vị.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="blog-comment-box">
+                            <h3>Bình Luận</h3>
+                            <div class="comment-item">
+                                <div class="comment-item-left">
+                                    <img src="~/asset/images/avt-img.jpg" alt="">
+                                </div>
+                                <div class="comment-item-right">
+                                    <div class="pull-left">
+                                        <a href="#">Rubel Ahmed</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>Time : <span>11.30 am</span>
+                                    </div>
+                                    <div class="des-l">
+                                        <p>Morbi lacinia ultrices lorem id tincidunt. Cras id dui risus. Pellentesque consectetur id mi sed pharetra. Proin imperdiet gravida nisl, sit amet varius urna. In auctor.</p>
+                                    </div>
+                                    <a href="#" class="right-btn-re"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                </div>
+                            </div>
+                            <div class="comment-item children">
+                                <div class="comment-item-left">
+                                    <img src="~/asset/images/avt-img.jpg" alt="">
+                                </div>
+                                <div class="comment-item-right">
+                                    <div class="pull-left">
+                                        <a href="#">Admin</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>Time : <span>1.30 pm</span>
+                                    </div>
+                                    <div class="des-l">
+                                        <p>Morbi lacinia ultrices lorem id tincidunt. Cras id dui risus. Pellentesque consectetur id mi sed pharetra. Proin imperdiet gravida nisl, sit amet varius urna. In auctor.</p>
+                                    </div>
+                                    <a href="#" class="right-btn-re"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                </div>
+                            </div>
+                            <div class="comment-item">
+                                <div class="comment-item-left">
+                                    <img src="~/asset/images/avt-img.jpg" alt="">
+                                </div>
+                                <div class="comment-item-right">
+                                    <div class="pull-left">
+                                        <a href="#">Rubel Ahmed</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>Time : <span>11.30 am</span>
+                                    </div>
+                                    <div class="des-l">
+                                        <p>Morbi lacinia ultrices lorem id tincidunt. Cras id dui risus. Pellentesque consectetur id mi sed pharetra. Proin imperdiet gravida nisl, sit amet varius urna. In auctor.</p>
+                                    </div>
+                                    <a href="#" class="right-btn-re"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-respond-box">
+                            <h3>Leave your comment </h3>
+                            <div class="comment-respond-form">
+                                <form id="commentrespondform" class="comment-form-respond row" method="post">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <input id="name_com" class="form-control" name="name" placeholder="Name" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="email_com" class="form-control" name="email" placeholder="Your Email" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <textarea class="form-control" id="textarea_com" placeholder="Your Message" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <button class="btn btn-submit">Submit comment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 col-12 blog-sidebar">
+                    <div class="right-side-blog">
+                        @*<h3>Search</h3>
+                            <div class="blog-search-form">
+                                <input name="search" placeholder="Search blog" type="text">
+                                <button class="search-btn">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </div>*@
+                        @*<h3>Thể Loại</h3>
+                            <div class="blog-categories">
+                                <ul>
+                                    <li><a href="#"><span>Food</span></a></li>
+                                    <li><a href="#"><span>Pizza</span></a></li>
+                                    <li><a href="#"><span>Drink</span></a></li>
+                                    <li><a href="#"><span>Lorem Sit</span></a></li>
+                                    <li><a href="#"><span>Burger</span></a></li>
+                                    <li><a href="#"><span>Music</span></a></li>
+                                </ul>
+                            </div>*@
+                        <h3>Recent Post</h3>
+                        <div class="post-box-blog">
+                            <div class="recent-post-box">
+                                <div class="recent-box-blog">
+                                    <div class="recent-img">
+                                        <img class="img-fluid" src="~/asset/images/comgaa.jpg" alt="">
+                                    </div>
+                                    <div class="recent-info">
+                                        <ul>
+                                            <li><i class="zmdi zmdi-account"></i>Posted By : <span>Rubel Ahmed</span></li>
+                                            <li>|</li>
+                                            <li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li>
+                                        </ul>
+                                        <h4>Cơm gà Trâm Anh có thực sự ngon như lời đồn??</h4>
+                                    </div>
+                                </div>
+                                <div class="recent-box-blog">
+                                    <div class="recent-img">
+                                        <img class="img-fluid" src="~/asset/images/comtambaghien.jpg" alt="">
+                                    </div>
+                                    <div class="recent-info">
+                                        <ul>
+                                            <li><i class="zmdi zmdi-account"></i>Posted By : <span>Admin A</span></li>
+                                            <li>|</li>
+                                            <li><i class="zmdi zmdi-time"></i>Time : <span>13.30 am</span></li>
+                                        </ul>
+                                        <h4>Cơm tấm Ba ghiền, đặc sản của Sài thành</h4>
+                                    </div>
+                                </div>
+                                @*<div class="recent-box-blog">
+                                        <div class="recent-img">
+                                            <img class="img-fluid" src="asset/images/post-img-03.jpg" alt="">
+                                        </div>
+                                        <div class="recent-info">
+                                            <ul>
+                                                <li><i class="zmdi zmdi-account"></i>Posted By : <span>Rubel Ahmed</span></li>
+                                                <li>|</li>
+                                                <li><i class="zmdi zmdi-time"></i>Time : <span>11.30 am</span></li>
+                                            </ul>
+                                            <h4>Duis feugiat neque sed dolor cursus, sed lacinia nisl pretium.</h4>
+                                        </div>
+                                    </div>*@
+                                <div class="recent-box-blog">
+                                    <div class="recent-img">
+                                        <img class="img-fluid" src="~/asset/images/post-img-01.jpg" alt="">
+                                    </div>
+                                    <div class="recent-info">
+                                        <ul>
+                                            <li><i class="zmdi zmdi-account"></i>Posted By : <span>Admin H</span></li>
+                                            <li>|</li>
+                                            <li><i class="zmdi zmdi-time"></i>Time : <span>17.30 am</span></li>
+                                        </ul>
+                                        <h4>Một bữa cơm gia đình ngon bao gồm những món nào..</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Thẻ trong bài viết</h3>
+                        <div class="blog-tag-box">
+                            <ul class="list-inline tag-list">
+                                <li class="list-inline-item"><a href="#">Món Ăn</a></li>
+                                <li class="list-inline-item"><a href="#">Du Lịch</a></li>
+                                <li class="list-inline-item"><a href="#">Kiến Thức</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End details -->
+    <!-- Start Contact info -->
+    <div class="contact-imfo-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fa fa-volume-control-phone"></i>
+                    <div class="overflow-hidden">
+                        <h4>Điện Thoại</h4>
+                        <p class="lead">
+                            0912345676
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa fa-envelope"></i>
+                    <div class="overflow-hidden">
+                        <h4>Email</h4>
+                        <p class="lead">
+                            monanngon@gmail.com
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa fa-map-marker"></i>
+                    <div class="overflow-hidden">
+                        <h4>Địa Chỉ</h4>
+                        <p class="lead">
+                            123 Đường Nguyễn Huệ , Quận 1, TP HCM
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact info -->
+    <!-- Start Footer -->
+    <footer class="footer-area bg-f">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <h3>Về Chúng Tôi</h3>
+                    <p>Chúng tôi với sứ mệnh mang đến cho mọi người những món ăn ngon, sạch sẽ, cũng như tạo ra cộng động để mọi người chia sẽ những món ăn ngon.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3> Đến với chúng tôi</h3>
+                    <p>Bạn sẽ không thể rời mắt khỏi màn hình với những món ăn được chia sẻ ở nơi đây</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p class="lead">123 Đường Nguyễn Huệ , Quận 1, TP HCM</p>
+                    <p class="lead"><a href="#"> 0912345676</a></p>
+                    <p><a href="#">  monanngon@gmail.com</a></p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Phản hồi nhanh</h3>
+                    <div class="subscribe_form">
+                        <form class="subscribe_form">
+                            <input name="EMAIL" id="subs-email" class="form_input" placeholder="Địa chỉ Email..." type="email">
+                            <button type="submit" class="submit">Phản Hồi</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <ul class="list-inline f-social">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="company-name">
+                            &copy; All rights reserved. <a href="#"> 2023 Món Ăn Ngon.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+    <!-- ALL JS FILES -->
+    <script src="~/asset/js/jquery-3.2.1.min.js"></script>
+    <script src="~/asset/js/popper.min.js"></script>
+    <script src="~/asset/js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="~/asset/js/jquery.superslides.min.js"></script>
+    <script src="~/asset/js/images-loded.min.js"></script>
+    <script src="~/asset/js/isotope.min.js"></script>
+    <script src="~/asset/js/baguetteBox.min.js"></script>
+    <script src="~/asset/js/form-validator.min.js"></script>
+    <script src="~/asset/js/contact-form-script.js"></script>
+    <script src="~/asset/js/custom.js"></script>
+</body>
+</html>

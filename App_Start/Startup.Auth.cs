@@ -58,11 +58,11 @@ namespace Food_Sharing_Food
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "320914756151-o40083iicsn65oo53ieet2frdctgbbsh.apps.googleusercontent.com",
+                ClientSecret = "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"
+            });
         }
     }
 }

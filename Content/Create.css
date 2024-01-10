@@ -1,0 +1,72 @@
+﻿
+
+body {
+    background-image: url('images/food.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.5), 2px 2px 1px rgba(0,0,0,0.3);
+}
+
+.h2{
+    color:white;
+}
+/* Center the heading */
+.text-center {
+    text-align: center;
+    color:white;
+}
+
+/* Style the form container */
+.container {
+    margin-top: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Style the form fields */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.control-label {
+    font-weight: bold;
+    color: #fff; /* đổi màu chữ thành màu trắng */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.form-control {
+    border-radius: 0;
+    color: #fff; /* đổi màu chữ thành màu trắng */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+
+
+
+.form-control-file {
+    padding-top: 5px;
+}
+
+/* Style the submit button */
+.btn-outline-success {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+    .btn-outline-success:hover {
+        background-color: #28a745;
+        color: white;
+    }
+
+/* Style the cancel button */
+.btn-primary {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #007bff;
+        color: white;
+    }

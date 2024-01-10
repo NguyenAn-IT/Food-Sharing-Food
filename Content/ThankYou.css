@@ -1,0 +1,31 @@
+﻿/* ThankYou.css */
+
+#thank-you {
+    text-align: center;
+    padding: 40px;
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    margin-top: 40px;
+}
+
+    #thank-you h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    #thank-you p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    #thank-you a {
+        font-size: 16px;
+        text-decoration: none;
+        color: #4CAF50;
+        transition: color 0.3s ease;
+    }
+
+        #thank-you a:hover {
+            color: #333;
+            text-decoration: underline;
+        }

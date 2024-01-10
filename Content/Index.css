@@ -1,0 +1,277 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #ddb892; /* thay đổi giá trị này thành màu vintage mong muốn */
+}
+/* Trang chủ */
+
+main {
+    margin: 50px 0;
+}
+
+.jumbotron {
+    background-image: url('https://picsum.photos/1920/1080');
+    background-size: cover;
+    color: #ffffff;
+    text-align: center;
+    padding: 200px 0;
+}
+
+    .jumbotron h1 {
+        font-size: 50px;
+        margin-bottom: 20px;
+    }
+
+    .jumbotron p {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+
+.button {
+    display: inline-block;
+    background-color: #ffd000;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #FFA500;
+}
+
+
+
+
+.services-section {
+    padding: 80px 0;
+    background-color: #f6f6f6;
+}
+
+    .services-section h2 {
+        margin-bottom: 50px;
+        font-size: 36px;
+        color: #333;
+    }
+
+    .services-section .card {
+        border: none;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+        .services-section .card:hover {
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+        }
+
+        .services-section .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+    .services-section .card-body {
+        padding:20px;
+        height: 500px;
+        width: 400px;
+    }
+
+    .services-section .card-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .services-section .card-text {
+        font-size: 25px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        height: 300px;
+        width: 400px;
+    }
+
+    .services-section .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+    }
+
+        .services-section .btn-primary:hover {
+            background-color: #0062cc;
+            border-color: #0062cc;
+        }
+
+/*Nhan Xet*/
+.testimonials-section {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.testimonial {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+    .testimonial:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+.testimonial-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    object-fit: cover;
+}
+
+.testimonial-text {
+    font-size: 23px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.testimonial-author {
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+}
+
+/*PR BANNER*/
+
+.offer {
+    background: linear-gradient(to bottom, #a37b5f, #fceec7);
+    width: auto; /* chỉnh chiều rộng của hộp offer */
+    height: auto; /* chỉnh chiều cao của hộp offer */
+    margin: 0 auto; /* căn giữa hộp offer trong trang web */
+    display: block; /* định dạng hiển thị của hộp offer */
+}
+
+    .offer .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center; /* căn giữa nội dung trong khung .offer */
+    }
+
+.offer-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 600px;
+    position: relative;
+    animation: slide-in 1s ease-in-out forwards;
+}
+
+.offer h1, .offer p {
+    text-align: center; /* căn giữa văn bản trong hộp */
+    margin-top: 120px; /* chỉnh khoảng cách giữa hộp offer và hai hộp khác */
+    position: relative;
+}
+
+.offer h1 {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+
+.btn:hover {
+    background-color: #FFA500;
+}
+
+/* Style cho footer */
+footer {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+    font-size: 14px;
+}
+
+    footer h4 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    footer p {
+        margin-bottom: 20px;
+    }
+
+    footer ul {
+        margin-bottom: 20px;
+    }
+
+        footer ul li {
+            line-height: 2;
+        }
+
+            footer ul li i {
+                margin-right: 10px;
+            }
+
+    footer .social-network {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        footer .social-network li {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 0;
+            margin-top: 10px; /* thêm margin-top để tạo khoảng cách */
+        }
+
+            footer .social-network li a {
+                color: #333;
+                display: block;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                border-radius: 50%;
+                border: 1px solid #333;
+                overflow: hidden; /* thêm dòng này */
+            }
+
+                footer .social-network li a img {
+                    width: 100%;
+                    height: auto; /* thêm dòng này */
+                    display: block; /* thêm dòng này */
+                    margin: 0; /* thêm dòng này */
+                    padding: 0; /* thêm dòng này */
+                }
+
+@media (max-width: 767px) {
+    footer .social-network li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+}

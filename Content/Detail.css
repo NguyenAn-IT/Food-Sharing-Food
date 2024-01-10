@@ -1,0 +1,107 @@
+﻿/* Detail.css */
+
+/* Định dạng toàn bộ trang */
+/*body {
+    background-color: #f8f9fa;*/ /* Màu nền */
+/*}*/
+
+/* Định dạng phần container chính */
+/*.container {
+    background-color: #ffffff;*/ /* Màu nền container */
+    /*border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/ /* Đổ bóng */
+    /*margin-top: 20px;
+}*/
+
+/* Định dạng phần card */
+/*.card {
+    border: 1px solid #ced4da;*/ /* Viền card */
+    /*border-radius: 10px;
+}*/
+
+/* Định dạng phần card-header */
+/*.card-header {
+    background-color: #007bff;*/ /* Màu header */
+    /*color: #ffffff;*/ /* Màu chữ header */
+    /*text-align: center;
+    padding: 15px;
+}*/
+
+/* Định dạng ảnh trong card */
+/*.card-img-top img {
+    border-radius: 10px 10px 0 0;*/ /* Bo tròn góc trên của ảnh */
+    /*max-width: 100%;
+    height: auto;
+}*/
+
+/* Định dạng phần caption */
+/*.caption {
+    margin-top: 20px;
+}*/
+
+/* Định dạng danh sách bình luận */
+/*.list-unstyled li {
+    margin-bottom: 10px;
+}*/
+
+/* Định dạng nút trong phần card-footer */
+/*.card-footer .btn {
+    margin-left: 10px;
+}*/
+
+/* Định dạng bản đồ */
+/*#map {
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}*/
+/* Content specific styles */
+.card {
+    margin-top: 20px;
+}
+
+.card-img-top img {
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-footer {
+    padding: 15px;
+}
+
+/* Map styles */
+#map {
+    border: 1px solid #ddd; /* Add a border to the map container */
+}
+
+/* Comment section styles */
+.caption {
+    margin-top: 20px;
+}
+
+ul.list-unstyled {
+    padding: 0;
+    list-style-type: none;
+}
+
+    ul.list-unstyled li {
+        margin-bottom: 10px;
+    }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .card {
+        margin-top: 10px;
+    }
+
+    .card-img-top img {
+        height: 200px;
+    }
+}
+
+/* Add more custom styles as needed */

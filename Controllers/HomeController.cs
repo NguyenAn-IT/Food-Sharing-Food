@@ -26,5 +26,13 @@ namespace Food_Sharing_Food.Controllers
 
             return View();
         }
+        public ActionResult Blog()
+        {
+            return View();
+        }
+        public ActionResult BlogDetails()
+        {
+            return View();
+        }
     }
 }

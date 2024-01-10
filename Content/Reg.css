@@ -1,0 +1,67 @@
+﻿form {
+    border-radius: 10px;
+    padding: 40px;
+    width: 500px;
+    margin: 50px auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Điều chỉnh màu nền của form */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+body {
+    background-image: url('images/foodtravel.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0; /* Loại bỏ margin mặc định của body */
+}
+
+.lb {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.infos[type="text"],
+input[type="email"],
+input[type="label"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 20px;
+    background-color: #333333;
+    color: white;
+}
+
+h4 {
+    text-align: center;
+    font-weight: bold;
+}
+
+#send,
+#limpar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+    #send:hover {
+        background-color: #45a049;
+    }
+
+#limpar {
+    background-color: #f44336;
+}
+
+    #limpar:hover {
+        background-color: #d32f2f;
+    }

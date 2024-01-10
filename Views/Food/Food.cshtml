@@ -1,0 +1,431 @@
+﻿@using PagedList.Mvc;
+@model IPagedList<Food_Sharing_Food.Models.Foods>
+@using PagedList
+@{
+    ViewBag.Title = "Food";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .container-fluid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .col-lg-4 {
+        flex: 0 0 calc(33.33% - 20px);
+        margin-bottom: 20px;
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: 1px solid #e2e2e2;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+    }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+    .card-header {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-bottom: 1px solid #e2e2e2;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Căn phần food-info về bên trái */
+    }
+
+    .food-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .food-info {
+        text-align: left; /* Căn văn bản bên trái */
+        margin-top: 10px; /* Khoảng cách giữa hình và phần info */
+    }
+
+    /* Các phần còn lại giữ nguyên */
+
+
+    .map-container {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%; /* Tỉ lệ khung của Google Maps */
+        border-top: 1px solid #e2e2e2;
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+    .card-footer {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 0 0 10px 10px;
+    }
+
+    .footer-btn {
+        margin-right: 5px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .btn-default {
+        background-color: #ffffff;
+        border-color: #ced4da;
+    }
+
+        .btn-default:hover {
+            background-color: #e2e6ea;
+            border-color: #dae0e5;
+        }
+/*Thanh tìm kiếm*/
+
+    .container {
+        margin-top: 10px;
+        margin-bottom: 10px
+    }
+    .form-inline {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .input-group {
+        margin-left: 10px;
+    }
+
+    .custom-control-label {
+        padding-left: 10px;
+    }
+
+    .form-control {
+        border-color: #3498db; /* Màu sắc viền input */
+    }
+
+    .btn-light {
+        background-color: #3498db; /* Màu sắc nền của nút tìm kiếm */
+        border-color: #3498db; /* Màu sắc viền của nút tìm kiếm */
+        color: #ffffff; /* Màu sắc chữ của nút tìm kiếm */
+    }
+
+    .btn-light:hover {
+        background-color: #2980b9; /* Màu sắc nền của nút tìm kiếm khi hover */
+        border-color: #2980b9; /* Màu sắc viền của nút tìm kiếm khi hover */
+    }
+    /* Thanh phân trang và return trang chủ*/
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom:20px;
+    }
+
+    .pagination {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination a,
+        .pagination span {
+            display: inline-block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #3498db;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .pagination .disabled span {
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        .pagination .active span {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+    .btn-back-home {
+        margin-top: 20px;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>Món Ăn Ngon</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="~/asset/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="~/asset/images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/asset/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="~/asset/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/asset/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/asset/css/custom.css">
+</head>
+<body>
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                @* <a class="navbar-brand" href="asset/index.html">
+                        <img src="~/asset/images/logo.png" alt="" />
+                    </a> *@
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbars-rs-food">
+                    <ul class="navbar-nav ml-lg-1">
+                        <!-- Thay đổi lớp từ ml-auto thành mr-auto -->
+                        <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Food", "Food")">Món Ăn Ngon</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("About", "Home")">Về Chúng Tôi</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Blog", "Home")">Diễn Đàn</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Giỏ Hàng</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a">
+                                <a class="dropdown-item" href="@Url.Action("ShowtoCart", "ShoppingCart")">Đặt Hàng</a>
+                                <a class="dropdown-item" href="@Url.Action("Payment", "ShoppingCart")">Thanh Toán</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "FeedBack")">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="all-page-title page-breadcrumb">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Món Ăn Ngon</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-title text-center">
+                        <h2>Món Ăn Ngon</h2>
+                        <p>-Trải nghiệm những món ăn tuyệt vời khắp Việt Nam-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <form action="@Url.Action("Food", "Food")" method="get" class="form-inline">
+            <div class="input-group ml-auto">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Tìm kiếm:</span>
+                </div>
+                <div class="custom-control custom-radio ml-2">
+                    @Html.RadioButton("Searching", "Name", new { @class = "custom-control-input", id = "searchByName" })
+                    <label class="custom-control-label" for="searchByName">Tên món ăn</label>
+                </div>
+                <div class="custom-control custom-radio ml-2">
+                    @Html.RadioButton("Searching", "Address", new { @class = "custom-control-input", id = "searchByAddress" })
+                    <label class="custom-control-label" for="searchByAddress">Địa chỉ</label>
+                </div>
+                <div class="custom-control custom-radio ml-2">
+                    @Html.RadioButton("Searching", "None", true, new { @class = "custom-control-input", id = "searchNone" })
+                    <label class="custom-control-label" for="searchNone">None</label>
+                </div>
+            </div>
+            <div class="input-group ml-3">
+                @Html.TextBox("Search", null, new { @class = "form-control" })
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-light">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="container mt-3">
+            <a href="@Url.Action("Create")" class="btn btn-success">Thêm Món Ăn</a>
+        </div>
+    }
+    <!-- Phần menu food-->
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (var food in Model)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">@Html.Raw(food.Name)</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (food.ImageUrl != null)
+                            {
+                                <a href="@Url.Action("Details", new { id = food.Id })" class="btn btn-default">
+                                    <img src="@Url.Content(food.ImageUrl)" alt="@food.Name" class="img-fluid food-image" />
+                                </a>
+                            }
+                            else
+                            {
+                                <img src="@Url.Content("~/images/default.jpg")" alt="Default Image" class="img-fluid food-image" />
+                            }
+
+                            <div class="food-info">
+                                <p><strong>Loại Đồ Ăn:</strong> @food.TypeFoods.Name</p>
+                                <p><strong>Địa chỉ:</strong> @food.Address</p>
+                                <p><strong>Giá:</strong> @food.Price</p>
+                            </div>
+                        </div>
+
+                        <div class="map-container">
+                            <iframe width="100%" height="300" frameborder="0" style="border:0"
+                                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&q=@food.Address"
+                                    allowfullscreen></iframe>
+                        </div>
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <a href="/ShoppingCart/AddtoCart/@food.Id" class="btn btn-primary footer-btn">Đặt hàng</a>
+                                <a href="@Url.Action("Details", new { id = food.Id })" class="btn btn-default footer-btn">Chi Tiết</a>
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a href="@Url.Action("Delete", new { id = food.Id })" class="btn btn-default footer-btn">Xóa</a>
+                                    <a href="@Url.Action("Edit", new { id = food.Id })" class="btn btn-default footer-btn">Sửa</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!--Kết thúc phần menu food-->
+    <!--Phần phân trang và trở về trang chủ -->
+    <div class="pagination-container">
+        @Html.PagedListPager(Model, page => Url.Action("Food", new { page, Searching = ViewBag.Searching, Search = ViewBag.Search }))
+    </div>
+
+    @*<div class="text-center btn-back-home">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Về trang chủ</a>
+        </div>*@
+
+    <!--Kết thúc phân trang và trỏ về trang chủ-->
+    <!-- Start Footer -->
+    <footer class="footer-area bg-f">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <h3>Về Chúng Tôi</h3>
+                    <p>Chúng tôi với sứ mệnh mang đến cho mọi người những món ăn ngon, sạch sẽ, cũng như tạo ra cộng động để mọi người chia sẽ những món ăn ngon.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3> Đến với chúng tôi</h3>
+                    <p>Bạn sẽ không thể rời mắt khỏi màn hình với những món ăn được chia sẻ ở nơi đây</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p class="lead">123 Đường Nguyễn Huệ , Quận 1, TP HCM</p>
+                    <p class="lead"><a href="#"> 0912345676</a></p>
+                    <p><a href="#">  monanngon@gmail.com</a></p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Phản hồi nhanh</h3>
+                    <div class="subscribe_form">
+                        <form class="subscribe_form">
+                            <input name="EMAIL" id="subs-email" class="form_input" placeholder="Email Address..." type="email">
+                            <button type="submit" class="submit">Phản Hồi</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <ul class="list-inline f-social">
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="company-name">
+                            &copy; All rights reserved. <a href="#"> 2023 Món Ăn Ngon.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+    <!-- ALL JS FILES -->
+    <script src="~/asset/js/jquery-3.2.1.min.js"></script>
+    <script src="~/asset/js/popper.min.js"></script>
+    <script src="~/asset/js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="~/asset/js/jquery.superslides.min.js"></script>
+    <script src="~/asset/js/images-loded.min.js"></script>
+    <script src="~/asset/js/isotope.min.js"></script>
+    <script src="~/asset/js/baguetteBox.min.js"></script>
+    <script src="~/asset/js/form-validator.min.js"></script>
+    <script src="~/asset/js/contact-form-script.js"></script>
+    <script src="~/asset/js/custom.js"></script>
+</body>
+</html>
+
